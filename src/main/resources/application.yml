@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: DEBUG
+    com.irotsoma: DEBUG
+    org.springframework: DEBUG
+  file:
+    path: ./logs
+
+spring:
+  h2.console.enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./database/githubjobs;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:mem:githubjobs;DB_CLOSE_ON_EXIT=FALSE
+    username: githubjobs
+    password: insecurepassword
+  jpa:
+    show-sql: true
+    properties.hibernate.format_sql: true
+    hibernate.ddl-auto: none
+
+server:
+  port: 8111

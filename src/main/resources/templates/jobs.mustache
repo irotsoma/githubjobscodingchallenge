@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Jobs by Location Mentioning Programming Languages</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="webjars/datatables/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.bootstrap4.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Jobs by Location</a>
+    </div>
+</nav>
+
+<hr class="mt-0">
+<div class="container">
+    <h5>List of jobs by location that mention a programming language. Note: Some jobs may mention multiple languages.</h5>
+</div>
+<hr class="mt-0">
+<div class="container">
+<table id="jobs-table" class="table">
+    <thead class="thead-light">
+    <tr>
+        <th>
+            Location
+        </th>
+        <th>
+            Language
+        </th>
+        <th>
+            Jobs Count
+        </th>
+        <th>
+            % of Jobs
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#jobsItem}}
+        <tr>
+            <td>
+                {{location}}
+            </td>
+            <td>
+                {{#language}}{{.}}{{/language}}{{^language}}All Jobs{{/language}}
+            </td>
+            <td>
+                {{count}}
+            </td>
+            <td>
+                {{percentageByLocation}}%
+            </td>
+        </tr>
+    {{/jobsItem}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="p-1"></td>
+        </tr>
+    </tfoot>
+</table>
+<hr class="mt-0">
+</div>
+<script type="text/javascript" src="webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var groupColumn = 0;
+        var table = $('#jobs-table').DataTable({
+            paging: false,
+            "ordering": false,
+            "columnDefs": [
+                { "visible": false, "targets": groupColumn }
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: 'Refresh from GitHub',
+                    action: function ( e, dt, node, config ) {
+                        alert( 'Refresh may take some time.' );
+                        window.location.replace("/?refresh=true")
+                    }
+                }
+            ],
+            "order": [[ groupColumn, 'asc' ]],
+            "displayLength": 25,
+            "drawCallback": function ( settings ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+
+                api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                                '<tr class="group"><td colspan="4">'+group+'</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                } );
+            }
+        } );
+        // Order by the grouping
+        $('#jobs-table tbody').on( 'click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+                table.order( [ groupColumn, 'desc' ] ).draw();
+            }
+            else {
+                table.order( [ groupColumn, 'asc' ] ).draw();
+            }
+        } );
+    } );
+</script>
+</body>
+</html>

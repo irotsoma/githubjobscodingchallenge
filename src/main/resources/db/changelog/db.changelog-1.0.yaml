@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: justin
+      changes:
+        - createTable:
+            tableName: language
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: nvarchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: location
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: nvarchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: jobs
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: language_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_jobs_language
+                    references: language(id)
+              - column:
+                  name: location_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_jobs_location
+                    references: location(id)
+              - column:
+                  name: count
+                  type: int
+                  constraints:
+                    nullable: false

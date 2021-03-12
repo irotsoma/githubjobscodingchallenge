@@ -1,0 +1,7 @@
+table {
+    width: auto
+}
+tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}

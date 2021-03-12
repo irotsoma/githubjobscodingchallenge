@@ -1,0 +1,113 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10000
+      author: justin
+      changes:
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Java
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: C#
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Python
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Swift
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Objective-C
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Ruby
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Kotlin
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Golang
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: C++
+        - insert:
+            tableName: language
+            columns:
+              - column:
+                  name: name
+                  value: Javascript
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Boston
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: San Francisco
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Los Angeles
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Denver
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Boulder
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Chicago
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: New York
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: Raleigh
